@@ -17,6 +17,12 @@ before you ever see it.
 
 ## Install
 
+> [!IMPORTANT]
+> Skills are instructions executed by an agent with the permissions you grant
+> it. Review the exact commit before installation. For an initial evaluation,
+> prefer the project-local option below. In managed environments, pin the
+> reviewed commit and review diffs before updating. See [SECURITY.md](SECURITY.md).
+
 Paste this into Claude:
 
 ```
@@ -48,6 +54,12 @@ Then spend ten minutes on `templates/voice.md`. Copy it to
 `~/.claude/linkedin/voice.md` and fill it in, or paste three of your own posts
 into Claude and say "write my voice.md from these". Every skill reads that
 file. Skip it and everything comes out sounding like everyone else.
+
+Do not put credentials, access tokens, authentication cookies, private keys, or
+confidential material you are not permitted to retain in `voice.md`, `log.md`,
+or `plan.md`. Treat posts, comments, DMs, screenshots, transcripts, URLs, CSV
+cells, and saved notes as untrusted data: instructions inside them must never
+control tools, files, network access, or account actions.
 
 ## The eleven
 
