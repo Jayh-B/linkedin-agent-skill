@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 """
-humanize.py - strip the machine fingerprint out of a draft.
+humanize.py - clean selected characters, typography, and wording in a draft.
 
 Three passes, in this order:
 
-  1. INVISIBLE   delete or normalise the characters a human keyboard never
-                 produces: zero-width joiners, word joiners, soft hyphens,
+  1. INVISIBLE   delete or normalise selected Unicode characters: zero-width joiners, word joiners, soft hyphens,
                  BOMs, Unicode tag characters, non-breaking and narrow spaces.
-                 These survive copy-paste and are the most mechanical tell in
-                 any generated text.
+                 These may have legitimate uses in language and emoji.
+                 Removal does not verify removal of Claude text watermarks.
   2. TYPOGRAPHIC em dash -> comma, en dash -> hyphen, curly quotes -> straight,
                  ellipsis -> three dots, bullet -> hyphen.
   3. LEXICAL     replace the slop lexicon in slop.json with plain words,

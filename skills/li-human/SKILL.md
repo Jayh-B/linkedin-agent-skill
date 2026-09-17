@@ -2,7 +2,7 @@
 name: li-human
 description: >-
   Strip the machine fingerprint out of any draft - em dashes, AI slop words,
-  invisible watermark characters - and score it against a five-check detection
+  selected invisible Unicode characters - and score it against a five-check detection
   panel before it goes out. Use whenever text needs to sound human, when the
   user says humanize, "does this sound like AI", "remove the em dashes", "de-slop
   this", "will this get flagged", or before any LinkedIn post, comment, reply
@@ -29,10 +29,10 @@ has a word they always use that the lexicon strips, remove it from the file.
 
 **1. Invisible characters.** Zero-width spaces and joiners, word joiners,
 soft hyphens, byte-order marks, Unicode tag characters, non-breaking and
-narrow spaces. A keyboard does not produce these. They survive copy-paste,
-they are invisible in every editor, and they are the single most mechanical
-thing in generated text. `humanize.py` deletes every one, including any
-remaining Unicode format character it does not have a name for.
+narrow spaces. `humanize.py` removes or normalizes these, including remaining
+Unicode format characters. This is character cleanup, not a verified Claude
+watermark remover. Joiners and format characters can be meaningful in emoji
+and non-English text, so review the result.
 
 **2. Typography.** Em dash to comma, en dash to hyphen, curly quotes to
 straight, ellipsis to three dots, bullet character to hyphen. The em dash pass
@@ -78,6 +78,10 @@ because a detector only needs one signal to fire. PASS needs an overall of 70+
 with no check below 55.
 
 ## Say this honestly
+
+Do not claim Claude's watermark was detected or removed. The invisible-character
+report proves only which characters changed. This repo has no verified Claude
+watermark detector, and the local score is not a watermark verification test.
 
 These are five local heuristics modelled on the signals public detectors key
 on. They run entirely on the user's machine and nothing is uploaded. They are
