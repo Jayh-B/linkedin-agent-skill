@@ -106,15 +106,17 @@ def check_slop(text, lex):
 def check_fingerprint(text):
     """Characters a phone keyboard does not produce."""
     invisible = sum(1 for c in text if unicodedata.category(c) == "Cf")
-    em = text.count("—")
+    em = sum(text.count(c) for c in "—―")
     curly = sum(text.count(c) for c in "‘’“”")
     ellip = text.count("…")
-    nbsp = sum(text.count(c) for c in "   ")
-    total = invisible * 4 + em * 2 + curly + ellip + nbsp
+    nbsp = sum(text.count(c) for c in "   ")
+    # Visible but non-ASCII hyphens. A phone keyboard does not make these either.
+    oddhyphen = sum(text.count(c) for c in "‐‑‒−")
+    total = invisible * 4 + em * 2 + curly + ellip + nbsp + oddhyphen
     per1k = total * 1000 / max(len(text), 1)
     score = scale(per1k, human=0.0, machine=12.0)
     detail = (f"{invisible} invisible, {em} em dash, {curly} curly quote, "
-              f"{ellip} ellipsis, {nbsp} hard space")
+              f"{ellip} ellipsis, {nbsp} hard space, {oddhyphen} odd hyphen")
     return score, detail
 
 
