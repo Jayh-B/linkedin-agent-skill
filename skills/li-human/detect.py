@@ -109,7 +109,7 @@ def check_fingerprint(text):
     em = sum(text.count(c) for c in "—―")
     curly = sum(text.count(c) for c in "‘’“”")
     ellip = text.count("…")
-    nbsp = sum(text.count(c) for c in "   ")
+    nbsp = sum(text.count(c) for c in (chr(0x00a0), chr(0x202f), chr(0x2009)))
     # Visible but non-ASCII hyphens. A phone keyboard does not make these either.
     oddhyphen = sum(text.count(c) for c in "‐‑‒−")
     total = invisible * 4 + em * 2 + curly + ellip + nbsp + oddhyphen
