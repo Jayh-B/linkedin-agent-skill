@@ -101,9 +101,10 @@ def pass_typographic(text, lex):
         if not n:
             continue
         hits.append({"name": f"{ch} {entry['name']}", "count": n, "to": entry["to"].strip() or "(space)"})
-        if ch == "—":
+        if ch in ("—", "―"):
             # " word — word " and "word—word" both collapse to a comma + space.
-            text = re.sub(r"\s*—\s*", ", ", text)
+            # U+2015 HORIZONTAL BAR is em-length and gets used the same way.
+            text = re.sub(r"\s*" + re.escape(ch) + r"\s*", ", ", text)
         elif ch == "–":
             text = re.sub(r"\s*–\s*(?=\d)", "-", text)      # 5–10  -> 5-10
             text = re.sub(r"\s+–\s+", ", ", text)            # used as em dash
